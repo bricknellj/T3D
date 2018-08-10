@@ -540,7 +540,7 @@ class game():
 				print("else")
 
 	def addMarker(self, layerNumber, click, player):
-		key, location=self.gameBoard.addMarker(layerNumber, click, player, self.gameBoard)
+		key, location=self.gameBoard.addMarker(layerNumber, click, player, self.boardView)
 		return key, location
 		
 class board():
@@ -723,8 +723,6 @@ class layer():
 			for x in range(4):
 				if self.markerPosition[x][y].val!=0:
 					self.markerPosition3D[x][y].display()
-
-
 	
 	def hide3DLayer(self):
 		self.layer3dButton.hide()
@@ -742,6 +740,7 @@ class layer():
 					self.markerPosition3D[x][y].hide()
 		
 	def addMarker(self, click, player, view):
+		print(view)
 		if view:
 			for y in range(4):
 				for x in range(4):
@@ -757,6 +756,7 @@ class layer():
 								self.buttons3D[x][y].changeColor("blue")
 							return True, x+4*y+16*self.layerNumber
 		else:
+
 			for y in range(4):
 				for x in range(4):
 					if self.buttons3D[x][y].isClicked(click):
@@ -766,13 +766,14 @@ class layer():
 							self.markerPosition[x][y]=marker(player,Point(self.centerX-self.size/2+self.size/4*(x+0.5), self.centerY-self.size/2+self.size/4*(y+0.5)),self.size/8-5,self.win)
 							if player == 1:
 								self.buttons3D[x][y].changeColor("red")					
-								self.box.undraw()
-								self.box.draw(self.win)
+								self.buttons3D[x][y].box.undraw()
+								self.buttons3D[x][y].box.draw(self.win)
 							else:
 								self.buttons3D[x][y].changeColor("blue")			
-								self.box.undraw()
-								self.box.draw(self.win)
+								self.buttons3D[x][y].box.undraw()
+								self.buttons3D[x][y].box.draw(self.win)
 							return True, x+4*y+16*self.layerNumber
+
 	def readMarker(self, row, col):
 		return self.layerPositions[layerNumber].readMarker(row, col)
 
@@ -805,7 +806,7 @@ class cross(marker):
 
 class naught(marker):
 	def __init__(self):
-		self.color = 'blue'
+		self.color = 'red'
 		pass
 	pass
 
