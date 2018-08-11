@@ -2,7 +2,7 @@ from graphics import *
 from T3DClasses import *
 
 # create and setup Window display
-WINDOW_WIDTH, WINDOW_HEIGHT = 1500, 1000
+WINDOW_WIDTH, WINDOW_HEIGHT = 1000, 667
 
 win = GraphWin("Simple Breakout", WINDOW_WIDTH, WINDOW_HEIGHT)
 win.setBackground("#476b6b")
@@ -94,8 +94,15 @@ while True:
 									currentGame.display()
 						break
 			else:
+				rotatedPoint = clickPoint.clone()
+				print(currentGame.angle)
+				for numRotations in range(1,currentGame.angle+1):
+					rotatedPoint = rotatedPoint(y, 3-x)
+
+
 				for i in range(4):
 					if currentGame.gameBoard.layerPositions[i].layer3dButton.isClicked(clickPoint):
+						
 						key, position=currentGame.addMarker( i, clickPoint, 2-currentGame.playerTurn%2)
 						if key:
 							if currentGame.nextTurn(position):
